@@ -3,7 +3,7 @@ numpy
 scipy
 Pillow
 scipy
-pymupdf
+pymupdf==1.19.1
 opencv-contrib-python==4.5.4.60
 emoji
 
