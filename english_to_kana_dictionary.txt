@@ -1,0 +1,35 @@
+1GB,イチギガバイト
+2GB,二ギガバイト
+simpletransformers,シンプルトランスフォーマーズ
+colaboratory,コラボラトリー
+Colab,コラボ
+VTuber, ブイチューバー
+ESRGAN,イーエスアールガン
+BSD3-Clause,ビーエスディースリークローズ
+license,ライセンス
+finetune,ファインチューン
+pytorch,パイトーチ
+swin,スウィン
+saeed,サイード
+ipad,アイパッド
+waifu,ワイフ
+residual, レジデュアル
+batch,バッチ
+normalization,ノーマリゼーション
+relativistic,リラティビスティック
+fake,フェイク
+ablation,アブレーション
+unet, ユーネット
+voicevox, ボイスボックス
+roberta,ロバータ
+transformer,トランスフォーマー
+segmentation,セグメンテーション
+ginza,ギンザ
+lipsync,リップシンク
+srgan,エスアールガン
+yamnet,ヤムネット
+audioset,オーディオセット
+hysts,ヒスツ
+discord,ディスコード
+2dml,ツーディーエムエル
+ml,エムエル
