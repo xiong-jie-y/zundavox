@@ -16,6 +16,10 @@
 [Google Colaboratory](https://colab.research.google.com/drive/1IQsydGzX6o7dmUScnq5npiMpOs27McB6?usp=sharing)で試すことができます。
 ColaboratoryのPro+プランに加入していない場合、３分程度の動画までしか生成できないため、長い動画を生成したい場合は、ローカル環境を構築することをおすすめします。
 
+## 推奨スペック
+* GPUが乗っているPC
+* Ubuntu (おそらく、Windowsでも動くはず...!!)
+
 ## インストール方法
 インストール手順は大きく分けて、依存ソフトウェアのインストールとVoicevoxのインストールの２つがあります。
 
