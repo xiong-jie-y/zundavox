@@ -252,17 +252,19 @@ class SlideVideoBuilder:
 
 class PresentationVideoGenerator:
     """Generates presentation video."""
-    def __init__(self, background_video, slide_pdf, character):
+    def __init__(self, background_video, slide_pdf, character, config):
         self.temporary_directory = tempfile.mkdtemp()
         self.video_generator = SlideVideoBuilder(self.temporary_directory, background_video, slide_pdf)
         self.visualizer = TsukuyomichanVisualizer(
             None, 
+            config.CHARACTER_GENERATION,
             feeling_estimator=None,
             clock=self.video_generator, wav_output=self.video_generator, # background_color=(0,255,0), 
             transparent_background=True, #  if background_video else False
-            character=character
+            character=character,
         )
         self.show_character_visual = True
+        self.config = config
 
     def generate_video(self, output_path, manuscript_file, scale_rate, subtitle_path=None, background_video=None, slide_pdf=None, character="zunda1"):
         manuscript = "".join(open(manuscript_file).readlines())

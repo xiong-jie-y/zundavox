@@ -1,0 +1,2 @@
+CHARACTER_GENERATION:
+  UPSCALER: "srvggnet"

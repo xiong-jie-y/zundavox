@@ -247,16 +247,29 @@ class LightweightRealESRGANUpscaler:
         pil_image = PIL.Image.fromarray(output, mode='RGB')
         return pil_image
 
+from realesrgan.archs.srvgg_arch import SRVGGNetCompact
+
+
 class RealESRGANUpscaler:
-    def __init__(self):
-        model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=6, num_grow_ch=32, scale=4)
-        # model = MSRResNet(num_in_ch=3, num_out_ch=3, num_feat=32, num_block=6, upscale=4)
+    def __init__(self, mode):
+        if mode == "rrdbnet":
+            model = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=6, num_grow_ch=32, scale=4)
+            model_path = get_model_file(
+                "RealESRGAN_x4plus_anime_6B.pth", "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth")
+        elif mode == "mrresnet":
+            model = MSRResNet(num_in_ch=3, num_out_ch=3, num_feat=32, num_block=6, upscale=4)
+            model_path="srgan_v4_60000.pth"
+        elif mode == "srvggnet":
+            model = SRVGGNetCompact(num_in_ch=3, num_out_ch=3, num_feat=64, num_conv=16, upscale=4, act_type='prelu')
+            model_path = get_model_file(
+                "RealESRGANv2-animevideo-xsx4.pth", "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.3.0/RealESRGANv2-animevideo-xsx4.pth"
+            )
+        else:
+            raise RuntimeError(f"No Such upscaling mode {mode}.")
+
         self.upsampler = RealESRGANer(
             scale=4,
-            model_path=get_model_file(
-                "RealESRGAN_x4plus_anime_6B.pth", "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth"),
-            # model_path="srgan_v4_60000.pth",
-            # model_path="net_g_21000.pth",
+            model_path=model_path,
             model=model,
             tile=0,
             tile_pad=10,
@@ -354,8 +367,7 @@ def get_shortest_rotvec_between_two_vector(a, b):
 
 
 class TsukuyomichanVisualizationGenerator:
-    def __init__(self, image_path, clock, background_color=(0,0,0), transparent_background=False, upscale=True, 
-        upscale_method=RealESRGANUpscaler):
+    def __init__(self, image_path, clock, config, background_color=(0,0,0), transparent_background=False, upscale=True):
         self.device = torch.device("cuda:0")
 
         self.poser = tha2.poser.modes.mode_20.create_poser(self.device)
@@ -377,7 +389,7 @@ class TsukuyomichanVisualizationGenerator:
         self.do_blink = True
         self.upscale = upscale
         if upscale:
-            self.upscaler = upscale_method()
+            self.upscaler = RealESRGANUpscaler(config.UPSCALER)
 
         # image_path = "character_images/reitsu.png"
         # image_path = "character_images/sozai-rei-yumesaki-mini-open-blank.png"
@@ -816,7 +828,7 @@ class VoicevoxTalksoft:
 
 class TsukuyomichanVisualizer:
     def __init__(self, 
-        talksoft, clock=WallClock(), wav_output=Speaker(), background_color=None,
+        talksoft, config, clock=WallClock(), wav_output=Speaker(), background_color=None,
         feeling_estimator=FeelingJaFeelingEstimator, transparent_background=False, 
         character="zunda1"
     ):
@@ -836,7 +848,7 @@ class TsukuyomichanVisualizer:
         self.clock = clock
         self.wav_output = wav_output
 
-        self.visualization_generator = TsukuyomichanVisualizationGenerator(image_path, self.clock, background_color, transparent_background)
+        self.visualization_generator = TsukuyomichanVisualizationGenerator(image_path, self.clock, config, background_color, transparent_background)
         if feeling_estimator is None:
             self.feeling_estimator = None
         else:
@@ -868,6 +880,7 @@ class TsukuyomichanVisualizer:
             self.english_to_kana_dictionary[key] = base_dictionary[key]
 
         # self.english2kana = EnglishToKana()
+        self.config = config
 
     def saying_something(self):
         return self.visualization_generator.saying_something()
