@@ -28,3 +28,4 @@ gdown
 PyYAML
 
 azure-cognitiveservices-speech
+yacs
