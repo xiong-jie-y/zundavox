@@ -20,7 +20,7 @@ from zundavox.agent_display import TsukuyomichanVisualizer
 
 
 class SlideVideoBuilder:
-    def __init__(self, d_path, background_video_path=None, slide_pdf_path=None):
+    def __init__(self, d_path, character, background_video_path=None, slide_pdf_path=None):
         self.frame = 0
         self.frame_rate = 30
         self.pil_images = []
@@ -52,6 +52,7 @@ class SlideVideoBuilder:
                 img = Image.open(io.BytesIO(data))
                 self.slides.append(img)
         self.current_slide = None
+        self.character = character
 
     def start_slide(self, no):
         self.current_slide = self.slides[no]
@@ -134,10 +135,12 @@ class SlideVideoBuilder:
                         self.pil_images.append(next_pil)
             else:
                 person = character_image_pil.resize((int(character_image_pil.width), int(character_image_pil.height)))
-                # tsumugi
-                # person_height = person.height // 2
-                # zunda
-                person_height = (person.height) * 2 // 3
+                if self.character == "tsumugi1":
+                    person_height = person.height // 2
+                elif self.character == "zunda1":
+                    person_height = (person.height) * 2 // 3
+                else:
+                    raise RuntimeError(f"No such character {self.character}")
 
                 background = Image.fromarray(self.background_clip.get_frame(self.frame % self.len_background_video_frames / self.frame_rate))
                 # background = self.background_video_frames[self.frame % len(self.background_video_frames)].copy()
@@ -254,7 +257,7 @@ class PresentationVideoGenerator:
     """Generates presentation video."""
     def __init__(self, background_video, slide_pdf, character, config):
         self.temporary_directory = tempfile.mkdtemp()
-        self.video_generator = SlideVideoBuilder(self.temporary_directory, background_video, slide_pdf)
+        self.video_generator = SlideVideoBuilder(self.temporary_directory, character, background_video, slide_pdf)
         self.visualizer = TsukuyomichanVisualizer(
             None, 
             config.CHARACTER_GENERATION,
