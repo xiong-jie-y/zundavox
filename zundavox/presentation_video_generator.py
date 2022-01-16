@@ -363,9 +363,6 @@ class PresentationVideoGenerator:
 
                 while visualizer.saying_something():
                     video_generator.add_video_frame(visualizer.visualize(None, generate_visual=self.show_character_visual))
-
-                subtitle_end_time = video_generator.time()
-                video_generator.add_subtitle(subtitle_start_time, subtitle_end_time, text)
         
                 # wait 0.5 after each text.
                 # next_clock = video_generator.time() + 1.0
@@ -376,6 +373,10 @@ class PresentationVideoGenerator:
                 # This is necessary to pad last phrase.
                 while not video_generator.pad_with_empty():
                     video_generator.add_video_frame(visualizer.visualize(None, generate_visual=self.show_character_visual))
+
+                # It should be here because padding will pad image while character is saying something.
+                subtitle_end_time = video_generator.time()
+                video_generator.add_subtitle(subtitle_start_time, subtitle_end_time, text)
             elif isinstance(text, float):
                 next_clock = video_generator.time() + text
                 i = 0
