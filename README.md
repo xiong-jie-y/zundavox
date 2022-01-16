@@ -20,7 +20,12 @@ ColaboratoryのPro+プランに加入していない場合、３分程度の動�
 インストール手順は大きく分けて、依存ソフトウェアのインストールとVoicevoxのインストールの２つがあります。
 
 ### 依存ソフトウェアのインストール
-依存ソフトウェアをインストールするために下記手順を実行してください。
+まず、pytorchのインストールが必要です。
+例えばcuda11.1であれば、下記コマンドでインストールできます。[公式サイト](https://pytorch.org/get-started/locally/)に従って自分の環境に合ったバージョンをインストールしてください。
+```
+pip install torch==1.8.1+cu111 torchvision==0.9.1+cu111 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html
+```
+それ以外の依存ソフトウェアをインストールするために下記手順を実行してください。
 ```bash
 # Pythonモジュールのインストール
 git clone https://github.com/xiong-jie-y/zundavox.git
