@@ -10,7 +10,7 @@
 * 春日部つむぎ
 
 ## インストール方法と使い方
-Google Colaboratoryを参考にしてください。
+[Google Colaboratory](https://colab.research.google.com/drive/1IQsydGzX6o7dmUScnq5npiMpOs27McB6?usp=sharing)を参考にしてください。
 
 ## 利用規約
 ### ずんだもんの動画を作成する場合
