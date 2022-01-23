@@ -21,15 +21,20 @@ ColaboratoryのPro+プランに加入していない場合、３分程度の動�
 * Ubuntu (おそらく、Windowsでも動くはず...!!)
 
 ## インストール方法（Dockerを使う場合)
-Dockerイメージをビルドします。
+Dockerイメージをダウンロードします。
+```bash
+docker pull xiongjiejie/zundavox
 ```
-docker build -t zundavox .
+(下記コマンドを用いてDockerイメージをビルドすることもできますが、時間がかかるので、pullをおすすめします。)
+```bash
+docker build -t xiongjiejie/zundavox .
 ```
-Dockerコンテナを立ち上げます。
-```
-cd zundavox
 
-docker run --gpus all --shm-size=8g -v `pwd`:/workspace/zundavox         --privileged      --env="QT_X11_NO_MITSHM=1"  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -it zundavox
+zundavoxをクローンしてきて、Dockerコンテナを立ち上げます。
+```bash
+git clone https://github.com/xiong-jie-y/zundavox.git
+cd zundavox
+docker run --gpus all --shm-size=8g -v `pwd`:/workspace/zundavox         --privileged      --env="QT_X11_NO_MITSHM=1"  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -it xiongjiejie/zundavox
 ```
 残りの手順は、使い方の説明に従ってください。
 コマンド例の`python`を`python3.8`に置き換えてください。
