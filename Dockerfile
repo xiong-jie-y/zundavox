@@ -63,4 +63,9 @@ RUN pip install transformers==4.11.3 -U && \
     pip install huggingface-hub==0.0.19
 
 WORKDIR /workspace/zundavox
-CMD /linux-nvidia/run > /dev/null 2>&1 & /bin/bash
+
+RUN apt-get install -y gosu
+
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
