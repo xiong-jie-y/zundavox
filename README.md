@@ -27,8 +27,12 @@ docker build -t zundavox .
 ```
 Dockerコンテナを立ち上げます。
 ```
+cd zundavox
+
+docker run --gpus all --shm-size=8g -v `pwd`:/workspace/zundavox         --privileged      --env="QT_X11_NO_MITSHM=1"  -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -it zundavox
 ```
 残りは、使い方に従ってください。
+zundavoxリポジトリのルートディレクトリを、Dockerの作業ディレクトリにマウントしてあるので、zundavoxリポジトリに関連ファイルを置くと楽です。
 コマンドの`python`を`python3.8`に置き換えてください。
 
 ## インストール方法(Dockerを使わない)
