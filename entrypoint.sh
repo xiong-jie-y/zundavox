@@ -10,4 +10,6 @@ export HOME=/home/user
 
 /linux-nvidia/run > /dev/null 2>&1 &
 
+touch $HOME/.zundavox.yaml
+
 exec /usr/sbin/gosu user /bin/bash
