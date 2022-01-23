@@ -91,8 +91,8 @@ from moviepy.editor import *
 
 from espnet2.bin.asr_align import CTCSegmentation
 
-import spacy
-import ginza
+# import spacy
+# import ginza
 
 def is_in_colaboratory():
     import os
@@ -126,7 +126,7 @@ class HumanVoiceDetector:
         #     authenticator=authenticator,
         # )
         
-        self.nlp = spacy.load('ja_ginza_electra')
+        # self.nlp = spacy.load('ja_ginza_electra')
 
         # speech_to_text.set_service_url(config['watson']['url'])
         # self.speech_to_text = speech_to_text

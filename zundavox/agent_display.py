@@ -631,8 +631,8 @@ class SentimentJaFeelingEstimator:
         return emotion_label
 
 
-from simpletransformers.classification import (ClassificationArgs,
-                                               ClassificationModel)
+# from simpletransformers.classification import (ClassificationArgs,
+#                                                ClassificationModel)
 
 
 class FeelingJaFeelingEstimator:
